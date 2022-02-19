@@ -41,7 +41,7 @@ async function main(){
   const fromColumn = rightBoard.columns.nodes.find(column => column.name === fromColumnName);
   const toColumn = rightBoard.columns.nodes.find(column => column.name === toColumnName);
   const projectCard = fromColumn.cards.nodes.find(card => card.content.number === issueNumber);
-  const cardNums = fromColumn.cards.nodes.map(card => card.content.number);
+  const cardNums = fromColumn.cards.nodes.map(card => card.content.number === issueNumber);
   console.log(JSON.stringify(fromColumn, undefined, 2));
   console.log(JSON.stringify(projectCard, undefined, 2));
   console.log(JSON.stringify(fromColumn.cards.nodes[0], undefined, 2));
