@@ -36,6 +36,7 @@ async function main(){
       }
     }
   }`);
+  console.log(JSON.stringify(cardQuery, undefined, 2));
   const projectBoard = 'code';
   const rightBoard = cardQuery.projects.nodes.find(node => node.name === projectBoard);
   const fromColumn = rightBoard.columns.find(column => column.name === fromColumnName);
