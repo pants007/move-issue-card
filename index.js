@@ -36,16 +36,28 @@ async function main(){
       }
     }
   }`);
-  const projectBoard = 'code';
-  const rightBoard = cardQuery.repository.projects.nodes.find(node => node.name === projectBoard);
-  const fromColumn = rightBoard.columns.nodes.find(column => column.name === fromColumnName);
-  const toColumn = rightBoard.columns.nodes.find(column => column.name === toColumnName);
-  const projectCard = fromColumn.cards.nodes.find(card => card.content.number == issueNumber);
-  const cardNums = fromColumn.cards.nodes.map(card => card.content.number == issueNumber);
-  console.log(JSON.stringify(fromColumn, undefined, 2));
-  console.log(JSON.stringify(projectCard, undefined, 2));
-  console.log(JSON.stringify(fromColumn.cards.nodes[0], undefined, 2));
-  console.log(cardNums);
+
+  var projects = await octokit.rest.projects.listForRepo({
+    owner: ownerName,
+    repo: repoName
+  });
+
+  const projectName = 'code';
+  const project = projects.data.find(project => project.name === projectName);
+
+  if (project === undefined){
+    core.setOutput('project-name', 'None');
+    throw `Project \'${projectName}\' does not exist in ${ownerName}/${repoName}.`
+  }
+
+  var projectColumns = await octokit.rest.projects.listColumns({project_id:project.id});
+  const fromColumn = projectColumns.data.find(column => column.name === fromColumnName);
+  const toColumn = projectColumns.data.find(column => column.name === toColumnName);
+  const projectCards = await octokit.rest.projects.listCards({
+    column_id:fromColumn.id
+  });
+  console.log(JSON.stringify(projectCards, undefined, 2));
+  const projectCard = projectCards.data.find(card => card.content.number == issueNumber);
   var movedCard = await octokit.rest.projects.moveCard({
     card_id: projectCard.id,
     position: 'top',
