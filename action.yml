@@ -1,0 +1,21 @@
+name: 'Move project card'
+description: 'Move a project card associated with an issue to a different column'
+inputs:
+  issue-number:
+    description: 'The issue number used to identify the project card'
+    default: ${{github.event.issue.number}}
+  from-column:
+    description: 'The project column from which the card will be moved'
+    default: 'To do'
+  to-column:
+    description: 'The project column the card should be moved to'
+    default: 'In progress'
+  repo-token:
+    description: 'A github authentication token'
+    default: ${{github.token}}
+outputs:
+  card-id:
+    description: 'The ID of the card that has been moved'
+runs:
+  using: 'node16'
+  main: 'index.js'
