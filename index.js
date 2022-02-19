@@ -57,7 +57,7 @@ async function main(){
     column_id:fromColumn.id
   });
   console.log(JSON.stringify(projectCards, undefined, 2));
-  const projectCard = dict.find(card => card.content_url.split('').reverse().join('').substring(0, card.content_url.split('').reverse().join('').search('/')).split('').reverse().join('') == issueNumber);
+  const projectCard = projectCards.find(card => card.content_url.split('').reverse().join('').substring(0, card.content_url.split('').reverse().join('').search('/')).split('').reverse().join('') == issueNumber);
   var movedCard = await octokit.rest.projects.moveCard({
     card_id: projectCard.id,
     position: 'top',
