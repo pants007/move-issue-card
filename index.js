@@ -38,16 +38,15 @@ async function main(){
   }`);
   console.log(JSON.stringify(cardQuery, undefined, 2));
   const projectBoard = 'code';
-  const rightBoard = cardQuery.projects.nodes.find(node => node.name === projectBoard);
-  const fromColumn = rightBoard.columns.find(column => column.name === fromColumnName);
-  const toColumn = rightBoard.columns.find(column => column.name === toColumnName);
-
-  const projectCard = fromColumn.cards.nodes.find(card => card.content.number === issueNumber);
-
+  const rightBoard = cardQuery.repository.projects.nodes.find(node => node.name === projectBoard);
   console.log(JSON.stringify(rightBoard, undefined, 2));
+  const fromColumn = rightBoard.columns.find(column => column.name === fromColumnName);
   console.log(JSON.stringify(fromColumn, undefined, 2));
+  const toColumn = rightBoard.columns.find(column => column.name === toColumnName);
   console.log(JSON.stringify(toColumn, undefined, 2));
+  const projectCard = fromColumn.cards.nodes.find(card => card.content.number === issueNumber);
   console.log(JSON.stringify(projectCard, undefined, 2));
+  
   var movedCard = await octokit.rest.projects.moveCard({
     card_id: projectCard.id,
     position: 'top',
