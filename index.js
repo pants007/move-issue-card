@@ -4,7 +4,6 @@ const github = require('@actions/github');
 async function main(){
   const myToken = core.getInput('repo-token');
   const issueNumber = core.getInput('issue-number');
-  console.log(`this is the issue at hand: ${issueNumber}`);
   const fromColumnName = core.getInput('from-column');
   const toColumnName = core.getInput('to-column');
   const repoName = github.context.payload.repository.name;
@@ -40,12 +39,13 @@ async function main(){
   const projectBoard = 'code';
   const rightBoard = cardQuery.repository.projects.nodes.find(node => node.name === projectBoard);
   const fromColumn = rightBoard.columns.nodes.find(column => column.name === fromColumnName);
-  console.log(JSON.stringify(fromColumn, undefined, 2));
   const toColumn = rightBoard.columns.nodes.find(column => column.name === toColumnName);
   const projectCard = fromColumn.cards.nodes.find(card => card.content.number === issueNumber);
+  const cardNums = fromColumn.cards.nodes.map(card => card.content.number);
+  console.log(JSON.stringify(fromColumn, undefined, 2));
   console.log(JSON.stringify(projectCard, undefined, 2));
   console.log(JSON.stringify(fromColumn.cards.nodes[0], undefined, 2));
-  console.log(fromColumn.cards.nodes[0].content.number);
+  console.log(cardNums);
   var movedCard = await octokit.rest.projects.moveCard({
     card_id: projectCard.id,
     position: 'top',
