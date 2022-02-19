@@ -1,3 +1,6 @@
+const core = require('@actions/core');
+const github = require('@actions/github');
+
 async function main(){
   const myToken = core.getInput('repo-token');
   const issueNumber = core.getInput('issue-number');
