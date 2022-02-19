@@ -45,6 +45,7 @@ async function main(){
   console.log(JSON.stringify(toColumn, undefined, 2));
   const projectCard = fromColumn.cards.nodes.find(card => card.content.number === issueNumber);
   console.log(JSON.stringify(projectCard, undefined, 2));
+  console.log(JSON.stringify(fromColumn.cards.nodes[0], undefined, 2));
   
   var movedCard = await octokit.rest.projects.moveCard({
     card_id: projectCard.id,
