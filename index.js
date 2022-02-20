@@ -62,18 +62,21 @@ async function main(){
   }
 
   let card = fromColumn.cards.nodes.find(card => card.content.number == issueNumber);
-
-  const moveQuery = `
-  {
-    moveProjectCard(
-      input:{
-        cardId: "${card.id}",
-        columnId:"${toColumn.id}"}){
-      clientMutationId
+  const cardResponse = await octokit.graphql(
+    `
+    mutation($cardId:ID!, $columnId: ID!) {
+      moveProjectCard(input:{cardId: $cardId, columnId: $columnId}) {
+        issue {
+          number
+        }
+      }
     }
-  }
-  `
-  var movedCard = await octokit.graphql({mutation: moveQuery});
+    `,
+    {
+      cardId: card.id,
+      columnId: toColumn.id,
+    }
+  );
   core.setOutput('card-id', `${card.id}`);
   return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${project.name}`;
 }
