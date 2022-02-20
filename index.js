@@ -76,7 +76,7 @@ async function main(){
     }
   );
   core.setOutput('card-id', `${card.id}`);
-  return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${project.name}`;
+  return `The card was moved from column \'${fromColumnName} to column \'${toColumnName}\' in ${repoName}/projects/${project.name}`;
 }
 
 main().then(
