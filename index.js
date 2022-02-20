@@ -65,17 +65,15 @@ async function main(){
 
   const moveQuery = `
   {
-    mutation {
-      moveProjectCard(
-        input:{
-          cardId: "${card.id}",
-          columnId:"${toColumn.id}"}){
-        clientMutationId
-      }
+    moveProjectCard(
+      input:{
+        cardId: "${card.id}",
+        columnId:"${toColumn.id}"}){
+      clientMutationId
     }
   }
   `
-  var movedCard = await octokit.graphql(moveQuery);
+  var movedCard = await octokit.graphql({mutation: moveQuery});
   core.setOutput('card-id', `${card.id}`);
   return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${project.name}`;
 }
