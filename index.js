@@ -66,9 +66,7 @@ async function main(){
     `
     mutation($cardId:ID!, $columnId: ID!) {
       moveProjectCard(input:{cardId: $cardId, columnId: $columnId}) {
-        issue {
-          number
-        }
+        clientMutationId
       }
     }
     `,
