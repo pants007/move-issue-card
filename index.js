@@ -65,11 +65,13 @@ async function main(){
 
   const moveQuery = `
   {
-    moveProjectCard(
-      input:{
-        cardId: "${card.id}",
-        columnId:"${toColumn.id}"}){
-      clientMutationId
+    mutation {
+      moveProjectCard(
+        input:{
+          cardId: "${card.id}",
+          columnId:"${toColumn.id}"}){
+        clientMutationId
+      }
     }
   }
   `
