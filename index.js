@@ -30,7 +30,7 @@ async function main(){
                         number
     }}}}}}}}}
   }`;
-  var projectsResponse = await octokit.graphql(projectQuery);
+  var response = await octokit.graphql(projectQuery);
 
   //find the project board the issue is attached to
   let project = response.data.repository.projects.nodes.find(proj => {
@@ -73,7 +73,7 @@ async function main(){
   `
   var movedCard = await octokit.graphql(moveQuery);
   core.setOutput('card-id', `${projectCard.id}`);
-  return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${projectBoard}`;
+  return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${project.name}`;
 }
 
 main().then(
