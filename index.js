@@ -72,7 +72,7 @@ async function main(){
   }
   `
   var movedCard = await octokit.graphql(moveQuery);
-  core.setOutput('card-id', `${projectCard.id}`);
+  core.setOutput('card-id', `${card.id}`);
   return `The card was moved to column \'${toColumn}\' in ${repoName}/projects/${project.name}`;
 }
 
