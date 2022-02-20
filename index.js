@@ -33,7 +33,7 @@ async function main(){
   var response = await octokit.graphql(projectQuery);
   console.log(JSON.stringify(response, undefined, 2));
   //find the project board the issue is attached to
-  let project = response.data.repository.projects.nodes.find(proj => {
+  let project = response.repository.projects.nodes.find(proj => {
     let correctCol = proj.columns.nodes.find(col => {
         let contentCards = col.cards.nodes.filter(card => card.state == 'CONTENT_ONLY');
         let isCardThere = contentCards.find(card => card.content.number == issueNumber);
