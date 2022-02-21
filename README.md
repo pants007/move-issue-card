@@ -20,4 +20,4 @@ The action will only complete if there exists a card tied to the issue identifie
           from-column: "To do"
           issue-number: 1
 ```
-This will move the card tied to issue #`1` from `"To do"` to `"In progress"`, if the conditions described above are met.
+This will move the card tied to issue #1 from `To do` to `In progress`, if the conditions described above are met.
