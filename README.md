@@ -7,6 +7,7 @@ This action lets you move a project card tied to an issue from one column to ano
 | to-column    | "To do"                          | The column the project card will be moved to   |
 | from-column  | "In progress"                    | The column the project card will be moved from |
 | issue-number | ${{github.context.issue.number}} | The issue for which a card will be looked up   |
+| repo-token   | ${{github.token}}                | The authentication token used by the action    |
 
 The action will only complete if `from-column` and `to-column` exist, and there exists a card in `from-column` tied to the issue identified by `issue-number`. The project itself is inferred by the card query performed by the action.
 
