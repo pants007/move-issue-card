@@ -30,8 +30,8 @@ async function main(){
                         number
     }}}}}}}}}
   }`;
-  
   var response = await octokit.graphql(projectQuery);
+
   //find the project board the issue is attached to
   let project = response.repository.projects.nodes.find(proj => {
     let correctCol = proj.columns.nodes.find(col => {
@@ -74,6 +74,7 @@ async function main(){
       columnId: toColumn.id,
     }
   );
+  
   core.setOutput('card-id', `${card.id}`);
   return `The card was moved from column \'${fromColumnName}\' to column \'${toColumnName}\' in ${repoName}/projects/${project.name}`;
 }
